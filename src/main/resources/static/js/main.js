@@ -15,7 +15,10 @@ function loadWebsites() {
   ];
 
   const homeworkWebsites = [
-
+    {
+      title: 'Assignment 5',
+      url: 'http://mason.gmu.edu/~omenyayl/assignment5/index.html'
+    }
   ];
 
   let inclassWebsitesCollectionItemsHTML = "";
