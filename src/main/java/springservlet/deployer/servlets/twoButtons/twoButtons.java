@@ -36,11 +36,6 @@ import javax.servlet.http.*;
 public class twoButtons extends HttpServlet
 {
 
-    // Location of servlet.
-    static String Domain  = "localhost:8080";
-    static String Path    = "/";
-    static String Servlet = "twoButtons";
-
     // Button labels
     static String OperationAdd = "Add";
     static String OperationSub = "Subtract";
@@ -129,7 +124,7 @@ public class twoButtons extends HttpServlet
         out.println("multiple submit buttons.");
         out.println("</p>");
         out.print  ("<form method=\"post\"");
-        out.println(" action=\"http://" + Domain + Path + Servlet + "\">");
+        out.println(" action=\"/twoButtons\">");
         out.println("");
         out.println(" <table>");
         out.println("  <tr>");
