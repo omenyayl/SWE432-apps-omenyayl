@@ -21,16 +21,22 @@ public class Assignment6 extends HttpServlet {
     private static String servletPath;
     private static String templatesPath;
 
+    private static String templateMain;
+    private static String templatePostReponse;
+
     static {
         servletPath = System.getProperty("user.dir") + "/src/main/java/springservlet/deployer/servlets/Assignment6";
         templatesPath = servletPath + "/templates";
+
+        templateMain = getTemplate("main.html");
+        templatePostReponse = getTemplate("post-response.html");
     }
 
     @Override
     protected void doGet (HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("text/html");
         PrintWriter out = res.getWriter(); // Make it appear as if we're "writing" to the browser window
-        out.print(getTemplate("main.html")); // print the main.html page in response to the GET request
+        out.print(templateMain); // print the main.html page in response to the GET request
         out.close();
     }
 
@@ -38,7 +44,6 @@ public class Assignment6 extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
-        String postResponseHTML = getTemplate("post-response.html");
         StringBuilder sb = new StringBuilder();
 
         // table body
@@ -51,11 +56,11 @@ public class Assignment6 extends HttpServlet {
                         "<td>%s</td>\n" +
                     "</tr>\n", key, param));
         }
-        out.print(postResponseHTML.replace("$[params-table-body]", sb.toString()));
+        out.print(templatePostReponse.replace("$[params-table-body]", sb.toString()));
         out.close();
     }
 
-    private String getTemplate(String templateName) {
+    private static String getTemplate(String templateName) {
         try {
             return new Scanner(new File(templatesPath + "/" + templateName)).useDelimiter("\\Z").next();
         } catch (FileNotFoundException e) {
