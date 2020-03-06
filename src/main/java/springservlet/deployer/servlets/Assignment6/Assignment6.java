@@ -32,7 +32,6 @@ public class Assignment6 extends HttpServlet {
         PrintWriter out = res.getWriter(); // Make it appear as if we're "writing" to the browser window
         out.print(getTemplate("main.html")); // print the main.html page in response to the GET request
         out.close();
-
     }
 
     @Override
