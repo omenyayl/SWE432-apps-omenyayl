@@ -52,7 +52,7 @@ public class Assignment6 extends HttpServlet {
                         "<td>%s</td>\n" +
                     "</tr>\n", key, param)).append("\n");
         }
-        out.print(postResponseHTML.replace("${params-table-body}", sb.toString()));
+        out.print(postResponseHTML.replace("$[params-table-body]", sb.toString()));
         out.close();
     }
 
