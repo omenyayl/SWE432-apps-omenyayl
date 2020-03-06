@@ -11,13 +11,17 @@ function loadWebsites() {
     {
       title: 'twoButtons',
       url: '/twoButtons'
-    }
+    },
   ];
 
   const homeworkWebsites = [
     {
       title: 'Assignment 5',
       url: 'http://mason.gmu.edu/~omenyayl/assignment5/index.html'
+    },
+    {
+      title: 'Assignment 6',
+      url: '/assignment6'
     }
   ];
 

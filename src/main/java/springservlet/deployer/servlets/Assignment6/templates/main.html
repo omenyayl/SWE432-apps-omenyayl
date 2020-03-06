@@ -1,0 +1,208 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Assignment 5</title>
+    <meta name="description" content="Review of classrooms at George Mason University.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        .question-title {
+            display: block;
+        }
+
+        .question-option {
+            display: block;
+        }
+
+        #submit-error {
+            padding-left: 1em;
+            color: #EE5A24;
+        }
+
+        label.question-option {
+            color: #3d3d3d;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<div class="container" style="margin-bottom: 10em">
+    <h1>Review of GMU Classrooms</h1>
+    <form id="survey" method="post" action="/assignment6">
+        <div class="questions">
+            <!-- Questions fill up here from JS-->
+        </div>
+
+        <button type="button" class="btn waves-effect waves-light" onclick="onClickButtonSubmit(this)">Submit
+        </button>
+        <span id="submit-error"></span>
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+
+<script>
+
+    const questions = [
+        {
+            title: 'What is the most important quality of a classroom?',
+            optionsType: 'multipleChoice',
+            options: [
+                'Air quality',
+                'Space',
+                'Sound projection',
+                'Cleanliness'
+            ]
+        },
+        {
+            title: 'Which building has the best classrooms?',
+            optionsType: 'multipleChoice',
+            options: [
+                'Engineering',
+                'JC',
+                'Innovations',
+                'Fenwick Library'
+            ]
+        },
+        {
+            title: 'How important is a classroom for your learning experience?',
+            optionsType: 'multipleChoice',
+            options: [
+                'Not so much',
+                'A bit',
+                'A decent amount',
+                'Very important'
+            ]
+        },
+        {
+            title: 'On a scale of 1-5, how nice is our SWE 432 classroom?',
+            optionsType: 'multipleChoice',
+            options: [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5'
+            ]
+        },
+        {
+            title: 'How would you describe your experience of our SWE 432 classroom?',
+            optionsType: 'textBox'
+        },
+        {
+            title: 'What is your major at GMU?',
+            optionsType: 'textBox'
+        }
+    ];
+
+    const answeredQuestions = {};
+    for (let i = 0; i < questions.length; i++) {
+        answeredQuestions[i] = false;
+    }
+
+    function onQuestionAnswer(questionNumber) {
+        answeredQuestions[questionNumber] = true;
+    }
+
+    function getMultipleChoiceOptionsHTML(questionNumber, options) {
+        let ret = "";
+        for (let j = 0; j < options.length; j++) {
+            let option = options[j];
+            ret += `
+            <label onclick="onQuestionAnswer(${questionNumber})" class="question-option">
+              <input name="q${questionNumber}" type="radio" value="${option}" />
+              <span>${option}</span>
+            </label>
+          `
+        }
+        return ret;
+    }
+
+    function getTextBoxHTML(questionNumber) {
+        return `
+      <div class="row">
+        <div class="input-field">
+            <textarea oninput="onQuestionAnswer(${questionNumber})" name="q${questionNumber}" id="q${questionNumber}" class="materialize-textarea"></textarea>
+        </div>
+      </div>
+      `
+    }
+
+    function generateQuestionHTML(questions) {
+        let ret = "";
+        for (let i = 0; i < questions.length; i++) {
+            let question = questions[i];
+            let options = "";
+
+            switch (question.optionsType) {
+                case 'multipleChoice':
+                    options = getMultipleChoiceOptionsHTML(i, question.options);
+                    break;
+                case 'textBox':
+                    options = getTextBoxHTML(i);
+                    break;
+                default:
+                    options = "";
+                    break;
+            }
+
+            ret += `
+        <div class="question">
+          <h5 class="question-title">${question.title}</h5>
+          <p>
+            ${options}
+          </p>
+        </div>
+        `
+        }
+        return ret;
+    }
+
+    function isFormValid() {
+        let isValid = true;
+        const questions = $('.questions .question');
+        for (let i in answeredQuestions) {
+            if (!answeredQuestions[i]) {
+                questions.get(i).style.color = '#EE5A24';
+                isValid = false;
+            } else {
+                questions.get(i).style.color = '';
+            }
+        }
+        return isValid;
+    }
+
+    function onClickButtonSubmit(b) {
+        let submitError = $('#submit-error');
+        if (isFormValid()) {
+            $('#survey').submit();
+            submitError.text('');
+        } else {
+            submitError.text('Please answer the highlighted questions above.');
+        }
+    }
+
+    $(document).ready(() => {
+        $('.questions').html(
+            generateQuestionHTML(questions)
+        )
+    });
+
+</script>
+
+</body>
+
+</html>
