@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -31,7 +30,7 @@ public class Assignment6 extends HttpServlet {
     protected void doGet (HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("text/html");
         PrintWriter out = res.getWriter(); // Make it appear as if we're "writing" to the browser window
-        out.print(getTemplate("main.html"));
+        out.print(getTemplate("main.html")); // print the main.html page in response to the GET request
         out.close();
 
     }
@@ -43,14 +42,15 @@ public class Assignment6 extends HttpServlet {
         String postResponseHTML = getTemplate("post-response.html");
         StringBuilder sb = new StringBuilder();
 
+        // table body
         Map<String, String[]> pm = req.getParameterMap();
         for (String key: pm.keySet()) {
             String param = pm.get(key)[0];
             sb.append(String.format(
-                    "<tr>" +
-                        "<td>%s</td>" +
-                        "<td>%s</td>" +
-                    "</tr>", key, param)).append("\n");
+                    "<tr>\n" +
+                        "<td>%s</td>\n" +
+                        "<td>%s</td>\n" +
+                    "</tr>\n", key, param)).append("\n");
         }
         out.print(postResponseHTML.replace("${params-table-body}", sb.toString()));
         out.close();
