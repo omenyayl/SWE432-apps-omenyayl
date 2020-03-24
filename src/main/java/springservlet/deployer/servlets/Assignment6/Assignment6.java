@@ -1,5 +1,8 @@
 package springservlet.deployer.servlets.Assignment6;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -54,9 +57,10 @@ public class Assignment6 extends HttpServlet {
                     "<tr>\n" +
                         "<td>%s</td>\n" +
                         "<td>%s</td>\n" +
-                    "</tr>\n", key, param));
+                    "</tr>\n", key, Jsoup.clean(param, Whitelist.basic()))); // clean untrusted text
         }
-        out.print(templatePostReponse.replace("$[params-table-body]", sb.toString()));
+        String processedHTML = templatePostReponse.replace("$[params-table-body]", sb.toString());
+        out.print(processedHTML);
         out.close();
     }
 
