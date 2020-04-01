@@ -12,6 +12,10 @@ function loadWebsites() {
             title: 'twoButtons',
             url: '/twoButtons'
         },
+        {
+            title: 'React exercise (March 31)',
+            url: '/js-interpreter/index.html'
+        }
     ];
 
     const homeworkWebsites = [
