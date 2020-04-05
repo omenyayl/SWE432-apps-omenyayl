@@ -2,6 +2,7 @@ package springservlet.deployer.servlets.Assignment6;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
