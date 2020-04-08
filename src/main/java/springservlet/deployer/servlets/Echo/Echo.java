@@ -19,7 +19,7 @@ import static springservlet.deployer.util.CORS.setCORS;
 )
 public class Echo extends HttpServlet {
     @Override
-    public void doOptions(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) {
         setCORS(resp);
     }
 
