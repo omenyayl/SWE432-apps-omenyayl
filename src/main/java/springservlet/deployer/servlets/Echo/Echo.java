@@ -18,6 +18,15 @@ import static springservlet.deployer.util.CORS.setCORS;
         urlPatterns = {"/echo"}
 )
 public class Echo extends HttpServlet {
+
+    @Override
+    protected void doGet (HttpServletRequest req, HttpServletResponse res) throws IOException {
+        setCORS(res);
+        PrintWriter out = res.getWriter();
+        out.print("Use POST");
+        out.close();
+    }
+
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) {
         setCORS(resp);
