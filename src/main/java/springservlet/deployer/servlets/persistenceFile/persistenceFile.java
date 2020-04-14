@@ -1,5 +1,8 @@
 package springservlet.deployer.servlets.persistenceFile;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -44,6 +47,9 @@ public class persistenceFile extends HttpServlet{
         String name = request.getParameter(Data.NAME.name());
         String age = request.getParameter(Data.AGE.name());
         String color = request.getParameter(Data.COLOR.name());
+        name = name.replaceAll(";", "");
+        age = age.replaceAll(";", "");
+        color = color.replaceAll(";", "");
 
         String error = "";
         if(name == null){
@@ -81,7 +87,7 @@ public class persistenceFile extends HttpServlet{
 
         if (error.length() == 0){
             PrintWriter entriesPrintWriter = new PrintWriter(new FileWriter(RESOURCE_FILE, true), true);
-            entriesPrintWriter.println(name+VALUE_SEPARATOR+age+VALUE_SEPARATOR+color);
+            entriesPrintWriter.println(Jsoup.clean(name+VALUE_SEPARATOR+age+VALUE_SEPARATOR+color, Whitelist.basic()));
             entriesPrintWriter.close();
 
             PrintHead(out);
