@@ -17,12 +17,12 @@ public class Assignment8 {
         this.submissionService = submissionService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<Submission> getSubmissions() {
         return this.submissionService.getSubmissions();
     }
 
-    @PostMapping(value = "/", consumes = "application/json")
+    @PostMapping(value = "", consumes = "application/json")
     public Submission addSubmission(@RequestBody Submission submission) {
         return this.submissionService.addSubmission(submission);
     }
