@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+server:
+  port: ${SWE_SERVER_PORT}
+  ssl:
+    key-store: ${KEYSTORE_PATH}
+    key-store-password: ${KEYSTORE_PASSWORD}
+    key-store-type: PKCS12
