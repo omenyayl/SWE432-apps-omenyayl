@@ -58,7 +58,7 @@ public class AttributeServlet extends HttpServlet
         out.println("");
 
         out.println("<body>");
-        out.println("<h1><center>Session attributes</center></h1>");
+        out.println("<h1><center>Session attributes <a href=\"https://github.com/omenyayl/SWE432-apps-omenyayl/blob/master/src/main/java/springservlet/deployer/servlets/AttributeServlet/AttributeServlet.java\">src</a></center></h1>");
 
         out.println("Enter name and value of an attribute");
 
