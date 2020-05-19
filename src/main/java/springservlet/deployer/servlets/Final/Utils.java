@@ -23,7 +23,9 @@ public class Utils {
 
         List<List<String>> table = new ArrayList<>();
         for (String element: elementsSplit) {
-            elements.add(element.trim());
+            if (!element.equals("")) {
+                elements.add(element.trim());
+            }
         }
 
         List<String> header = new ArrayList<>(elements);
@@ -64,6 +66,6 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(getTruthTable("B && (B || C)"));
+        System.out.println(getTruthTable("(B && D && (B || C))"));
     }
 }
