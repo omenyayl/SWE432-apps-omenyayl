@@ -4,6 +4,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Utils {
@@ -14,18 +15,19 @@ public class Utils {
      * @return truth table
      */
     public static List<List<String>> getTruthTable(String expression) {
-        List<String> elements = new ArrayList<>();
+        HashSet<String> elements = new HashSet<>();
         String cleanedExpression = expression.replaceAll("(\\s+)|(\\()|(\\))|(&&)|(\\|\\|)", " ").replaceAll("\\s+", " ");
         String[] elementsSplit = cleanedExpression.split(" ");
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine javascript = manager.getEngineByName("JavaScript");
 
         List<List<String>> table = new ArrayList<>();
-        List<String> header = new ArrayList<>();
         for (String element: elementsSplit) {
             elements.add(element.trim());
-            header.add(element);
         }
+
+        List<String> header = new ArrayList<>(elements);
+
         header.add("Evaluation");
         table.add(header);
 
@@ -62,6 +64,6 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(getTruthTable("Apple && (B || C)"));
+        System.out.println(getTruthTable("B && (B || C)"));
     }
 }
